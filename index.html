@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+	<!--EXAMPLE STYLES-->
+	<style type="text/css">
+		html,body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			position: relative;
+		}
+		.header {
+			height: 200px;
+			background: blue;
+		}
+		.center {
+			min-height: 1300px;
+			min-width: 1200px;
+			margin: 0 auto;
+		}
+		.center:after {
+			content:"";
+			display:block;
+			visibility:hidden;
+			font-size:0;
+			clear:both;
+			height:0;
+			text-overflow:ellipsis;
+		}
+		.stick-element-content {
+			height: 500px;
+			position: relative;
+			background: #ccc;
+		}
+		.stick-element-content div.top,
+		.stick-element-content div.bottom {
+			position: absolute;
+			display: block;
+			left: 0;
+		}
+		.stick-element-content div.top {
+			top: 0;
+		}
+		.stick-element-content div.bottom {
+			bottom: 0;
+		}
+		.footer {
+			height: 250px;
+			background: #0f0;
+		}
+	</style>
+	<!--EXAMPLE STYLES-->
+
+	<!--REQUIRED-->
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="StickIt.js"></script>
+	<!--REQUIRED-->
+</head>
+<body>
+<div class="header">header</div>
+
+<script type="text/javascript">
+	$(function () {
+		var stick = $(".stick-element").stickIt({
+			wrapperClass: "stick-wrapper",
+			offsetTop: 0,
+			offsetBottom: 250 //$(".footer").outerHeight()
+		});
+
+
+
+		var stickContent = $(".stick-element-content").eq(0);
+		$(".less, .more").click(function(){
+			var h = stickContent.height();
+			if($(this).hasClass("less")) {
+				h = h - 20;
+			}
+			if($(this).hasClass("more")) {
+				h = h + 20;
+			}
+			stickContent.height(h);
+			stick.update({
+				offsetTop: function() {
+					return 0;
+				},
+				offsetBottom: function() {
+					return 250;
+				}
+			});
+			return false;
+		});
+		$(".on").click(function(){
+			stick.turnOn();
+			return false;
+		});
+		$(".off").click(function(){
+			stick.turnOff();
+			return false;
+		});
+
+
+
+		var stick2 = $(".stick-element2").stickIt({
+			wrapperClass: "stick-wrapper",
+			offsetTop: 150,
+			offsetBottom: $(".footer").outerHeight() - 30
+		});
+		$(".add-content").click(function(){
+			$('<div style="height:300px; width:300px; background:red;"></div>').insertAfter( $(this) );
+			stick2.update();
+			return false;
+		});
+
+
+		var stick3 = $(".stick-element3").stickIt({
+			wrapperClass: "stick-wrapper",
+			offsetTop: 50,
+			offsetBottom: 250
+		});
+	});
+</script>
+
+<div class="center">
+	<div style="float: left;">
+		<div class="stick-container" style="width: 300px;">
+			<div class="stick-element">
+				<div class="stick-element-content">
+					<div class="top">
+						Залип при достижении верха окна<br/>
+
+						<div style="text-align: center;">
+							<a href="#" class="less">-</a>
+							Изменить высоту
+							<a href="#" class="more">+</a>
+						</div>
+
+						<a class="on" href="#">turnOn</a>
+						<a class="off" href="#">turnOff</a>
+					</div>
+					<div class="bottom">Отлип при касании футера</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div style="float: left;">
+		<div class="stick-container" style="width: 300px;">
+			<div class="stick-element3">
+				<div class="stick-element-content" style="background: darkgreen; height: 600px;">
+					<div class="top">
+						Залип при достижении верха окна + 50<br/>
+					</div>
+					<div class="bottom">Отлип при касании футера</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div style="float: right;">
+		<a href="#" class="add-content">add content</a>
+		<div>
+			<br/><br/><br/>
+			<div class="stick-container" style="width: 300px;">
+				<div class="stick-element2">
+					<div class="stick-element-content" style="background: #f0c040; height: 800px;">
+						<div class="top">
+							Залип при достижении верха окна + 150<br/>
+						</div>
+						<div class="bottom">Отлип при касании футера - 30</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="footer"></div>
+
+</body>
+</html>
+

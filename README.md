@@ -43,7 +43,7 @@ Released under the MIT license - http://opensource.org/licenses/MIT
 ###Вызвать плагин
 ```javascript
 $(document).ready(function(){
-$('#stick-element').stickIt();
+	$('#stick-element').stickIt();
 });
 ```
 
@@ -51,38 +51,36 @@ $('#stick-element').stickIt();
 
 ###Базовые
 
-**wrapperClass**
-Класс у блока обертки
+**wrapperClass** - класс у блока обертки
 ```
 default: 'stick-wrapper'
 ```
-```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt({
-wrapperClass: 'stick-wrapper'
+	wrapperClass: 'stick-wrapper'
 });
 ```
 
-**offsetTop**
-отступ сверху, относительно viewport
+**offsetTop** - отступ сверху, относительно viewport
 ```
 default: 0
 options: integer or function
 ```
-```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt({
-offsetTop: 150
+	offsetTop: 150
 });
 
 var stick = $(".stick-element").stickIt({
-offsetTop: $('header').height()
+	offsetTop: $('header').height()
 });
 
 var stick = $(".stick-element").stickIt({
-offsetTop: function() {
-return someChangedValue
-}
+	offsetTop: function() {
+		return someChangedValue
+	}
 }
 });
 ```
@@ -96,45 +94,46 @@ return someChangedValue
 default: 0
 options: integer or function
 ```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt({
-offsetBottom: 150
+	offsetBottom: 150
 });
 
 var stick = $(".stick-element").stickIt({
-offsetBottom: $('footer').height()
+	offsetBottom: $('footer').height()
 });
 
 var stick = $(".stick-element").stickIt({
-offsetTop: function() {
-return someChangedValue
+	offsetTop: function() {
+		return someChangedValue
+	}
 }
-}
 });
-
+```
 
 ###Public methods
 
 **turnOff**
 Отключает действие плагина
-```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt();
 stick.turnOff();
 ```
 
 **turnOn**
 Включает действие плагина, если ранее был выключен
-```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt();
 stick.turnOn();
 ```
 
 **update**
 Обновляет слайдер, Полезен, когда изменились размеры блока.
-```
-example:
+
+```javascript
 var stick = $(".stick-element").stickIt();
 $(".stick-element").height(newHeight);
 stick.update();
