@@ -85,8 +85,7 @@ var stick = $(".stick-element").stickIt({
 });
 ```
 
-**offsetBottom**
-отступ снизу, относительно документа, а не window.
+**offsetBottom** - отступ снизу, относительно документа, а не window.
 при прокрутки вниз элемент отлипнет и начент скроллится,
 когда до конца прокрутки страницы
 останется заданное количество пикселей
@@ -114,24 +113,21 @@ var stick = $(".stick-element").stickIt({
 
 ###Public methods
 
-**turnOff**
-Отключает действие плагина
+**turnOff** - отключает действие плагина
 
 ```javascript
 var stick = $(".stick-element").stickIt();
 stick.turnOff();
 ```
 
-**turnOn**
-Включает действие плагина, если ранее был выключен
+**turnOn** - включает действие плагина, если ранее был выключен
 
 ```javascript
 var stick = $(".stick-element").stickIt();
 stick.turnOn();
 ```
 
-**update**
-Обновляет слайдер, Полезен, когда изменились размеры блока.
+**update** - полезен, когда изменились размеры блока.
 
 ```javascript
 var stick = $(".stick-element").stickIt();
