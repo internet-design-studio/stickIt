@@ -31,7 +31,7 @@ Released under the MIT license - http://opensource.org/licenses/MIT
 ```
 
 ###Создать HTML разметку
-**div.stick-container** is not necessary, use it for positions (margins, paddings).
+**div.stick-container** не является необходимым, служит для задания отступов (margins, paddings).
 ```html
 <div class="stick-container">
 	<div id="stick-element">
@@ -107,7 +107,6 @@ var stick = $(".stick-element").stickIt({
 	offsetTop: function() {
 		return someChangedValue
 	}
-}
 });
 ```
 
