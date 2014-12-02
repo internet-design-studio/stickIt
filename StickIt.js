@@ -35,8 +35,8 @@
         }
 
         var itemObject = this,
-            offsetTop = options.offseTop || 0,
-            offsetBottom = options.offseBottom || 0,
+            offsetTop = options.offsetTop || 0,
+            offsetBottom = options.offsetBottom || 0,
             wrapperClass = options.wrapperClass || "stick-wrapper",
             itemObjectHeight = itemObject.outerHeight(),
             $w = $(window),
