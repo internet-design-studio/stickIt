@@ -1,32 +1,32 @@
 /*
-    VERSION 0.1.3
+ VERSION 0.1.4
  */
 /*
-Пример вызова
+ Пример вызова
  var stick = $(".stick-element").stickIt({
-     wrapperClass: "stick-wrapper",
-     offsetTop: 106, - отступ сверху, относительно window
-     offsetBottom: $("#footer").outerHeight() // - отступ снизу, относительно документа, а не window.
-                                              // при прокрутки вниз элемент отлипнет и начент скроллится,
-                                              // когда до конца прокрутки страницы
-                                              // останется заданное количество пикселей
-    // или отступы задаются через выражение
-    offsetTop: function(){
-        return value;
-     },
-    offsetBottom: function(){
-         return value;
-     }
+ wrapperClass: "stick-wrapper",
+ offsetTop: 106, - отступ сверху, относительно window
+ offsetBottom: $("#footer").outerHeight() // - отступ снизу, относительно документа, а не window.
+ // при прокрутки вниз элемент отлипнет и начент скроллится,
+ // когда до конца прокрутки страницы
+ // останется заданное количество пикселей
+ // или отступы задаются через выражение
+ offsetTop: function(){
+ return value;
+ },
+ offsetBottom: function(){
+ return value;
+ }
  });
 
  stick.turnOff(); - отключить залипание
  stick.turnOn(); - включить залипание
  stick.update() - вызываем метод после изменения высоты itemObject
  stick.update({
-    offsetTop: 136,
-    offsetBottom: 200
+ offsetTop: 136,
+ offsetBottom: 200
  }) - вызываем метод c новыми параметрами отступов.
-*/
+ */
 
 (function( $ ) {
     $.fn.stickIt = function(options) {
@@ -54,6 +54,7 @@
         // INIT
         initStick();
 
+
         // FUNCTIONS
         /**
          *  Инициализация плагина
@@ -61,6 +62,18 @@
          *  повесить обработчики.
          */
         function initStick() {
+
+            // SET HANDLERS
+            if($("." + wrapperClass).length == 0) {
+                $w.on("resize.stick", function() {
+                    setTimeout(function(){
+                        recalculate(smartFix);
+                    }, 300);
+                }).on("scroll.stick", function() {
+                    smartFix();
+                });
+            }
+
             var rememberTopOffset = $w.scrollTop();
             $w.scrollTop(0);
 
@@ -77,15 +90,6 @@
 
             $w.scrollTop(rememberTopOffset);
         }
-        // HANDLERS
-        $w.on("resize.stick", function() {
-            setTimeout(function(){
-                recalculate(smartFix);
-            }, 300)
-        }).on("scroll.stick", function() {
-            smartFix();
-        });
-
 
         /**
          *  Перерасчет основных параметров, полезен при update, resize.
@@ -98,8 +102,8 @@
                 itemObjectHeight = itemObject.outerHeight();
                 itemObject.width(itemObject.parent("." + wrapperClass).width());
 
-                offsetTop = options.offsetTop || 0;
-                offsetBottom = options.offsetBottom || 0;
+                offsetTop = offsetTop || options.offsetTop || 0;
+                offsetBottom = offsetBottom || options.offsetBottom || 0;
 
                 if(typeof offsetTop == "function") {
                     offsetTop = offsetTop();
@@ -311,7 +315,7 @@
             if(itemObject.parent().hasClass(wrapperClass )) {
                 itemObject.unwrap();
             }
-            if($("."+wrapperClass).length == 0) {
+            if($("." + wrapperClass).length == 0) {
                 $w.off(".stick");
             }
         }
@@ -342,7 +346,6 @@
             offsetTop = updateSettings.offsetTop || offsetTop;
             offsetBottom = updateSettings.offsetBottom || offsetBottom;
             wrapperClass = updateSettings.wrapperClass || "stick-wrapper";
-
             turnOn();
 
         };
